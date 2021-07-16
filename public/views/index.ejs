@@ -1,0 +1,25 @@
+<%- include('partials/header') %> 
+<% for (const post of posts) { %> 
+  
+          <article class="post pure-u-1 pure-u-md-1 pure-u-lg-1-2 pure-u-xl-1-3">
+            <div class="post-content post--category-<%=post.category.toLowerCase()%>"
+            style="background-image: url(<%=post.img%>)">
+              <header class="post-header">
+                <h2 class="post-title"><a href="article.html"><%= post.title %></a></h2>
+                <span class="post-image-caption"><%= post.sub_title %>  </span>
+  
+                <p class="post-meta">
+                  Par <a class="post-author" href="#"><%= post.author %>  </a> dans la catégorie <a class="post--category-<%=post.category.toLowerCase()%> post-category"
+                    href="#"><%= post.category %>  </a>
+                </p>
+              </header>
+              <main class="post-summary">
+                <p>
+                    <%= post.text.split(' ').slice(0, 30).join(' ') + ' ...' %> 
+                  </p>
+                </main>
+              </div>
+            </article>
+            
+            <% } %> 
+<%- include('partials/footer') %> 
