@@ -13,4 +13,9 @@ router.get('/', (req, res) => {
     res.render('./index.ejs');
 });
 
+router.get('/post/id:', (req, res) => {
+    let postId = req.params
+    console.log(postId); 
+});
+
 module.exports = router;
