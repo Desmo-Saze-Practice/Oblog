@@ -1,3 +1,27 @@
 <%- include('partials/header') %> 
 
+    
+<article class="post post--full pure-u-1">
+    <div class="post-content post--category-histoire">
+        <header class="post-header">
+            <a class="post-back" href="/">&lt; Retour à l'accueil</a>
+            <h2 class="post-title"><%= foundPost.title %></h2>
+            <p class="post-meta">
+                Par <a class="post-author" href="#"><%= foundPost.author %></a> dans la catégorie <a
+                    class="post-category" href="#"><%= foundPost.category %></a>
+            </p>
+        </header>
+        <figure>
+            <img src= <%= foundPost.img %> alt=<%= foundPost.img_alt %>>
+            <figcaption class="post-image-caption"><%= foundPost.sub_title %></figcaption>
+        </figure>
+        <main class="post-description">
+            <div class="post-text">
+                <%= foundPost.text %> 
+            </div>
+        </main>
+    </div>
+</article>
+
+
 <%- include('partials/footer') %> 

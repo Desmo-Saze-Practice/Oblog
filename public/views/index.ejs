@@ -5,7 +5,7 @@
             <div class="post-content post--category-<%=post.category.toLowerCase()%>"
             style="background-image: url(<%=post.img%>)">
               <header class="post-header">
-                <h2 class="post-title"><a href="article.html"><%= post.title %></a></h2>
+                <h2 class="post-title"><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
                 <span class="post-image-caption"><%= post.sub_title %>  </span>
   
                 <p class="post-meta">
