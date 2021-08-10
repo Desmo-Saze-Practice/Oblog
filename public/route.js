@@ -19,7 +19,7 @@ router.get('/post/:id', (req, res) => {
     const currentPost = postsData.find(post => post.id.toString() === postId.toString());
 
     if (!currentPost) {
-        res.status(404).render('404');
+        next();
         return;
     }
 
