@@ -1,0 +1,15 @@
+<%- include('partials/header') %> 
+
+<% if (locals.error) { %>
+    <p> <%= error %> </p>
+<% } %>
+<h1>Identification</h1>
+<form action="" method="POST">
+    <label for="user-name">Nom de l'utilisateur</label>
+    <input type="text" name="username" id="user-name" placeholder="ex: groot" value="<%= userInfos.username %> ">
+    <label for="password">Mot de passe</label>
+    <input type="password" name="password" id="password" placeholder="ex: mynameiswhat?12" value="<%= userInfos.password %>" >
+    <button type="submit">Connexion</button>
+</form>
+
+<%- include('partials/footer') %> 

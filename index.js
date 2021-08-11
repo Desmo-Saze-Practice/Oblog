@@ -4,6 +4,9 @@ const app = express();
 
 app.use(express.static('public'));
 
+// pour le formulaire et le body (extended est le format par defaut employé par les navigateurs)
+app.use(express.urlencoded({extended: true}));
+
 let ejs = require('ejs');
 
 app.set('view engine', 'ejs');
