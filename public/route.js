@@ -6,6 +6,10 @@ const users = require('../data/user.json');
 
 const router = express.Router();
 
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 router.use((req, res, next) => {
     res.locals.posts = postsData;
     next();
@@ -24,47 +28,51 @@ router.use((req, res, next) => {
 const logger = require('./logger');
 router.use(logger);
 
-router.post('/login', (req, res) => {
-    let errorStr = '';
-    res.locals.userInfos = req.body;
-    if (!req.body.username || !req.body.password) {
-        errorStr = 'all fields must be completed.'
-    }
-
-    const userFound = users.find((user, userIndex) => user.username === res.locals.userInfos.username);
-
-    console.log('user found ', userFound);
-
-
-
-    if (userFound) {
-        console.log('first if user');
-        const isPassCorrect = userFound.password === req.body.password;
-        res.render('login', { error: errorStr }, { userInfos: req.body });
-        console.log("pass ", isPassCorrect);
-
-        if (isPassCorrect) {
-            res.render('login', { error: errorStr }, { userInfos: req.body });
-        } else {
-            errorStr = 'Loggins incorrect, please try again.';
-            console.log("fail pass");
+router.route('/login')
+    .post((req, res) => {
+        let errorStr = '';
+        res.locals.userInfos = req.body;
+        if (!req.body.username || !req.body.password) {
+            errorStr = 'all fields must be completed.'
         }
 
-    } else {
-        errorStr = 'Loggin failed, please try again.';
-        console.log('fail user');
-    }
-    if (!errorStr) {
-        res.redirect('/');
-        return;
-    }
-    res.render('login', { error: errorStr });
+        const userFound = users.find((user, userIndex) => user.username === res.locals.userInfos.username);
 
-});
+        console.log('user found ', userFound);
 
-router.get('/login', (req, res) => {
-    res.render('login');
-});
+        if (userFound) {
+
+            bcrypt.compare(req.body.password, userFound.password, function (err, isPassCorrect) {
+                if (isPassCorrect) {
+                    res.redirect('/');
+                    console.log('good pass');
+                    return;
+                } else {
+                    errorStr = 'Loggins incorrect, please try again.';
+                    console.log("fail pass");
+                }
+            });
+
+            console.log('first if user');
+            const isPassCorrect = userFound.password === req.body.password;
+            res.render('login', { error: errorStr }, { userInfos: req.body });
+            console.log("pass ", isPassCorrect);
+
+
+
+        } else {
+            errorStr = 'Loggin failed, please try again.';
+            console.log('fail user');
+        }
+        if (!errorStr) {
+            res.redirect('/');
+            return;
+        }
+        res.render('login', { error: errorStr });
+    })
+    .get((req, res) => {
+        res.render('login');
+    });
 
 router.get('/', (req, res) => {
     res.render('index');
